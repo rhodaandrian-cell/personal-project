@@ -1,0 +1,13 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Starter Product",
+      "description": "Example product to verify the API works.",
+      "category": "General",
+      "price": 10.0,
+      "stock": 20,
+      "sku": "SKU-0001"
+    }
+  ]
+}
