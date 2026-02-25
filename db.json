@@ -5,7 +5,7 @@
       "name": "Starter Product",
       "description": "Example product to verify the API works.",
       "category": "General",
-      "price": 10,
+      "price": 500,
       "stock": 20,
       "sku": "SKU-0001"
     },
