@@ -1,43 +1,30 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 const API = "http://localhost:3001";
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState([]);
+  const { data: products, loading, error, refetch } = useFetch(`${API}/products`);
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        setError("");
-        setLoading(true);
-
-        const res = await fetch(`${API}/products`);
-        if (!res.ok) throw new Error("Failed to fetch products");
-
-        const data = await res.json();
-        setProducts(data);
-      } catch (e) {
-        setError(e.message || "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadProducts();
-  }, []);
 
   const filteredProducts = useMemo(() => {
+    const list = Array.isArray(products) ? products : [];
     const term = searchTerm.trim().toLowerCase();
-    if (!term) return products;
-    return products.filter((p) => (p.name || "").toLowerCase().includes(term));
+    if (!term) return list;
+    return list.filter((p) => (p.name || "").toLowerCase().includes(term));
   }, [products, searchTerm]);
 
   if (loading) return <p>Loading products...</p>;
-  if (error) return <p style={{ color: "crimson" }}>{error}</p>;
+  if (error)
+    return (
+      <div>
+        <p style={{ color: "crimson" }}>{error}</p>
+        <button onClick={refetch} style={{ padding: "8px 12px" }}>
+          Retry
+        </button>
+      </div>
+    );
 
   return (
     <section>

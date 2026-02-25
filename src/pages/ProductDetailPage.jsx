@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const API = "http://localhost:3001";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [priceInput, setPriceInput] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -70,6 +72,26 @@ export default function ProductDetailPage() {
     }
   }
 
+  async function handleDelete() {
+    const ok = window.confirm("Delete this product? This cannot be undone.");
+    if (!ok) return;
+
+    setError("");
+    setSuccess("");
+    setDeleting(true);
+
+    try {
+      const res = await fetch(`${API}/products/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete product");
+
+      navigate("/products");
+    } catch (e) {
+      setError(e.message || "Something went wrong");
+    } finally {
+      setDeleting(false);
+    }
+  }
+
   if (loading) return <p>Loading product...</p>;
   if (error && !product) return <p style={{ color: "crimson" }}>{error}</p>;
   if (!product) return null;
@@ -81,10 +103,18 @@ export default function ProductDetailPage() {
       <h1 style={{ marginTop: 12 }}>{product.name}</h1>
       <p>{product.description}</p>
 
-      <p><b>Category:</b> {product.category}</p>
-      <p><b>Current Price:</b> ${Number(product.price).toFixed(2)}</p>
-      <p><b>Stock:</b> {product.stock}</p>
-      <p><b>SKU:</b> {product.sku}</p>
+      <p>
+        <b>Category:</b> {product.category}
+      </p>
+      <p>
+        <b>Current Price:</b> ${Number(product.price).toFixed(2)}
+      </p>
+      <p>
+        <b>Stock:</b> {product.stock}
+      </p>
+      <p>
+        <b>SKU:</b> {product.sku}
+      </p>
 
       <hr style={{ margin: "16px 0" }} />
 
@@ -93,7 +123,10 @@ export default function ProductDetailPage() {
       {error && <p style={{ color: "crimson" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
 
-      <form onSubmit={handleUpdatePrice} style={{ display: "flex", gap: 10, alignItems: "center" }}>
+      <form
+        onSubmit={handleUpdatePrice}
+        style={{ display: "flex", gap: 10, alignItems: "center" }}
+      >
         <input
           ref={priceRef}
           value={priceInput}
@@ -106,6 +139,20 @@ export default function ProductDetailPage() {
           {saving ? "Saving..." : "Update"}
         </button>
       </form>
+
+      <hr style={{ margin: "16px 0" }} />
+
+      <button
+        onClick={handleDelete}
+        disabled={deleting}
+        style={{
+          padding: "10px 14px",
+          border: "1px solid #ddd",
+          cursor: deleting ? "not-allowed" : "pointer",
+        }}
+      >
+        {deleting ? "Deleting..." : "Delete Product"}
+      </button>
     </section>
   );
 }
