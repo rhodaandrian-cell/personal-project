@@ -1,13 +1,22 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Starter Product",
       "description": "Example product to verify the API works.",
       "category": "General",
-      "price": 10.0,
+      "price": 10,
       "stock": 20,
       "sku": "SKU-0001"
+    },
+    {
+      "id": "23ff",
+      "name": "Wireless mouse",
+      "description": "Used for navigating tabs without disturbing cables; for laptops and desktops",
+      "category": "Technology",
+      "price": 1500,
+      "stock": 40,
+      "sku": "new-edition"
     }
   ]
 }
