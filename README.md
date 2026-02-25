@@ -1,16 +1,42 @@
-# React + Vite
+# 🛒 Personal Project – React Admin Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based administrator portal for managing products in an e-commerce system.
 
-Currently, two official plugins are available:
+This Single Page Application (SPA) demonstrates advanced React concepts including state management with hooks, client-side routing, CRUD operations, custom hooks, and component testing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ✅ Landing page (Home)
+- ✅ View all products
+- ✅ Search products dynamically
+- ✅ View single product details
+- ✅ Add new product (POST)
+- ✅ Edit product price (PATCH)
+- ✅ Delete product (DELETE)
+- ✅ Client-side routing (React Router)
+- ✅ Custom hook (`useFetch`)
+- ✅ Responsive and elegant UI
+- ✅ Component testing with Vitest & React Testing Library
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧱 Tech Stack
+
+- React (Vite)
+- React Router DOM
+- json-server (Simulated backend)
+- Vitest
+- React Testing Library
+- Modern CSS styling
+
+---
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone <YOUR_REPO_LINK>
+cd personal-project
